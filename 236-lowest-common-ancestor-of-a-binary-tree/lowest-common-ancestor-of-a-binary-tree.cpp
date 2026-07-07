@@ -30,17 +30,15 @@ public:
         vector<TreeNode*>Q;
         solve(root,p,P);
         solve(root,q,Q);
-         reverse(P.begin(),P.end());
-        reverse(Q.begin(),Q.end());
-
-        for(auto it:P){
-            TreeNode* temp = it;
-            for(auto ch:Q){
-                if(temp == ch){
-                    return temp;
-                }
+         
+        int i= 0;
+        TreeNode* temp = NULL;
+        while(i < P.size() && i < Q.size()){
+            if(P[i] == Q[i]){
+                temp = P[i];
             }
+            i++;
         }
-        return NULL;
+        return temp;
     }
 };

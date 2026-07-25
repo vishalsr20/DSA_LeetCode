@@ -1,23 +1,20 @@
 class Solution {
 public:
     int maxProduct(int n) {
-        vector<int>num;
+        if(n < 0) return  0;
+        int num1 = -1;
+        int num2 = -1;
+
         while(n != 0){
-            num.push_back(n%10);
+            int digit = n % 10;
+            if(digit > num1){
+                num2 = num1;
+                num1 = digit;  
+            }else if(digit > num2){
+                num2=digit;
+            }
             n/=10;
         }
-        int maxPro = 0;
-        for(auto it:num){
-            cout<<it<<endl;
-        }
-        n = num.size();
-        for(int i=0; i<n; i++){
-            int temp = 0;
-            for(int j=i+1; j<n; j++){
-               temp = max(temp,num[i]*num[j]);
-            }
-            maxPro = max(maxPro,temp);
-        }
-        return maxPro;
+        return num1*num2;
     }
 };

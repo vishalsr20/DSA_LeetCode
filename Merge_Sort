@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void merge(int arr[], int start , int mid , int end){
+
+    vector<int>num(end-start+1);
+    int i =start;
+    int j=mid+1;
+    int index = 0;
+    while(i <= mid && j <= end){
+        if(arr[i] <= arr[j]){
+            num[index] = arr[i];
+            i++;
+        }else{
+            num[index]=arr[j];
+            j++;
+        }
+        index++;
+    }
+    while(i <= mid){
+        num[index] = arr[i];
+        i++;
+        index++;
+    }
+    
+    while(j <= end){
+        num[index] = arr[j];
+        j++;
+        index++;
+    }
+    
+    for(int i=0; i<num.size(); i++){
+        arr[start+i] = num[i];
+    }
+}
+
+void solve(int arr[], int start, int end){
+    if(start >=  end){
+        return ;
+    }
+    
+    int mid = start + (end- start) / 2;
+    solve(arr,0,mid);
+    solve(arr,mid+1,end);
+    merge(arr,0,mid, end);
+}
+
+int main(){
+    int arr[] = {8,1,7,2,6,3,5,4};
+    int size = 8;
+    solve(arr,0,size-1);
+    for(int i=0; i<8; i++){
+        cout<<arr[i]<<" ";
+    }
+    return  0;
+}

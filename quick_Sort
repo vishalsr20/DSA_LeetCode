@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace  std;
+
+int partition(int nums[], int start, int end){
+    int pivot = nums[start];
+    int count = 0;
+    for(int i=start+1; i<=end; i++){
+        if(nums[i] <= pivot){
+            count++;
+        }
+    }
+    int pivotIndex = start + count;
+    swap(nums[start],nums[pivotIndex]);
+    int i = start;
+    int j = end;
+    
+    while(i < pivotIndex && j > pivotIndex){
+        while(i < pivotIndex && nums[i] < nums[pivotIndex]){
+            i++;
+        }
+        while(j > pivotIndex && nums[j] > nums[pivotIndex]){
+            j--;
+        }
+        
+        if(i < pivotIndex && j > pivotIndex){
+            swap(nums[i],nums[j]);
+            i++;
+            j--;
+        }
+    }
+    return pivotIndex;
+}
+
+void quickSort(int arr[], int start , int end){
+    if(start >= end){
+        return ;
+    }
+    int pivot = partition(arr,start,end);
+    quickSort(arr,start,pivot-1);
+    quickSort(arr,pivot+1,end);
+}
+
+int main(){
+    int nums[] = {9,7,51,5,6,4,7,1,3,8,2};
+    int size = 11;
+    
+    quickSort(nums,0,size-1);
+    for(int i=0; i<size ; i++){
+        cout<<nums[i]<<" ";
+    }
+    
+}
